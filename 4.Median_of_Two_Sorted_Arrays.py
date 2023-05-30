@@ -19,7 +19,7 @@
 # 0 <= n <= 1000
 # 1 <= m + n <= 2000
 # -106 <= nums1[i], nums2[i] <= 106
-
+# https://www.youtube.com/watch?v=q6IEA26hvXc
 
 class Solution:
 
