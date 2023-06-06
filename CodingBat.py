@@ -237,10 +237,41 @@ def array_front9_v2(nums):
     return False
 
 
+# Warmup-2 > array123
+# Given an array of ints, return True if the sequence of numbers 1, 2, 3 appears in the array somewhere.
+# array123([1, 1, 2, 3, 1]) → True
+# array123([1, 1, 2, 4, 1]) → False
+# array123([1, 1, 2, 1, 2, 3]) → True
+def array123(nums):
+    for i in range(len(nums) - 2):
+        if nums[i:i + 3] == [1, 2, 3]:
+            return True
+    return False
+
+def array1232(nums):
+    for i in range(len(nums) - 2):
+        if nums[i] == 1 and nums[i + 1] == 2 and nums[i + 2] == 3:
+            return True
+    return False
 
 
-
-
+# Warmup-2 > string_match  HARD
+# Given 2 strings, a and b, return the number of the positions where they contain the same length 2 substring.
+# So "xxcaazz" and "xxbaaz" yields 3, since the "xx", "aa", and "az" substrings appear in the same place in both strings.
+# string_match('xxcaazz', 'xxbaaz') → 3
+# string_match('abc', 'abc') → 2
+# string_match('abc', 'axc') → 0
+def string_match(a, b):
+    # Determine the length of the shorter string
+    length = min(len(a), len(b))
+    # Counter for matching substrings
+    count = 0
+    # Iterate through the strings up to the second-to-last index
+    for i in range(length - 1):
+        # Compare pairs of substrings directly
+        if a[i:i + 2] == b[i:i + 2]:
+            count += 1
+    return count
 
 
 
