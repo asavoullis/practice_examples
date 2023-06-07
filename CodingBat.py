@@ -321,6 +321,24 @@ def extra_end(str):
     return 3*str[-2:]
 
 
+# String-1 > first_two
+# Given a string, return the string made of its first two chars, so the String "Hello" yields "He".
+# If the string is shorter than length 2, return whatever there is, so "X" yields "X", and the empty string "" yields the empty string "".
+# first_two('Hello') → 'He'
+# first_two('abcdefg') → 'ab'
+# first_two('ab') → 'ab'
+def first_two(str):
+    return str[:2]
+
+
+# String-1 > first_half
+# prev  |  next  |  chance
+# Given a string of even length, return the first half. So the string "WooHoo" yields "Woo".
+# first_half('WooHoo') → 'Woo'
+# first_half('HelloThere') → 'Hello'
+# first_half('abcdef') → 'abc'
+def first_half(str):
+    return str[:len(str)/2]
 
 
 
