@@ -1,395 +1,312 @@
-# Warmup-1 > sleep_in
-# The parameter weekday is True if it is a weekday, and the parameter vacation is True if we are on vacation.
-# We sleep in if it is not a weekday or we're on vacation. Return True if we sleep in.
-# sleep_in(False, False) → True
-# sleep_in(True, False) → False
-# sleep_in(False, True) → True
-def sleep_in(weekday, vacation):
-    # if not weekday or vacation:
-    if weekday and not vacation:
-        return False
-    else:
-        return True
+# Logic-2 > make_bricks HARD
+# We want to make a row of bricks that is goal inches long. We have a number of small bricks (1 inch each) and big bricks (5 inches each).
+# Return True if it is possible to make the goal by choosing from the given bricks. This is a little harder than it looks and can be done without any loops.
+# make_bricks(3, 1, 8) → True
+# make_bricks(3, 1, 9) → False
+# make_bricks(3, 2, 10) → True
+def make_bricks(small, big, goal):
+    big_needed = min(big, goal // 5)  # Calculate the maximum number of big bricks needed
+    small_needed = goal - big_needed * 5  # Calculate the remaining length to be filled with small bricks
 
+    return small_needed <= small  # Check if there are enough small bricks available
 
-# Warmup-1 > monkey_trouble
-# We have two monkeys, a and b, and the parameters a_smile and b_smile indicate if each is smiling.
-# We are in trouble if they are both smiling or if neither of them is smiling. Return True if we are in trouble.
-# monkey_trouble(True, True) → True
-# monkey_trouble(False, False) → True
-# monkey_trouble(True, False) → False
-def monkey_trouble(a_smile, b_smile):
-    if (a_smile and b_smile) or (not a_smile and not b_smile):
-        return True
-    else:
-        return False
+# Logic-2 > lone_sum
+# Given 3 int values, a b c, return their sum. However, if one of the values is the same as another of the values, it does not count towards the sum.
+# lone_sum(1, 2, 3) → 6
+# lone_sum(3, 2, 3) → 2
+# lone_sum(3, 3, 3) → 0
+def lone_sum(a, b, c):
+    if a == b == c:  # If all three values are the same
+        return 0
+    elif a == b:  # If a and b are the same
+        return c
+    elif a == c:  # If a and c are the same
+        return b
+    elif b == c:  # If b and c are the same
+        return a
+    else:  # All three values are different
+        return a + b + c
 
-
-# Warmup-1 > sum_double
-# Given two int values, return their sum.
-# Unless the two values are the same, then return double their sum.
-# sum_double(1, 2) → 3
-# sum_double(3, 2) → 5
-# sum_double(2, 2) → 8
-def sum_double(a, b):
-    if a == b:
-        return 2 * (a + b)
-    else:
+# Logic-2 > lucky_sum
+# Given 3 int values, a b c, return their sum. However, if one of the values is 13 then it does not count towards the sum and values to its right do not count.
+# So for example, if b is 13, then both b and c do not count.
+# lucky_sum(1, 2, 3) → 6
+# lucky_sum(1, 2, 13) → 3
+# lucky_sum(1, 13, 3) → 1
+def lucky_sum(a, b, c):
+    if a == 13:
+        return 0
+    if b == 13:
+        return a
+    if c == 13:
         return a + b
-
-
-# Warmup-1 > diff21
-# Given an int n, return the absolute difference between n and 21,
-# except return double the absolute difference if n is over 21.
-# diff21(19) → 2
-# diff21(10) → 11
-# diff21(21) → 0
-def diff21(n):
-    if n > 21:
-        return abs(2 * (n - 21))
     else:
-        return abs(n - 21)
+        return a + b + c
 
+# Logic-2 > no_teen_sum  HARD
+# Given 3 int values, a b c, return their sum. However, if any of the values is a teen -- in the range 13..19 inclusive --
+# then that value counts as 0, except 15 and 16 do not count as a teens.
+# Write a separate helper "def fix_teen(n):"that takes in an int value and returns that value fixed for the teen rule.
+# In this way, you avoid repeating the teen code 3 times (i.e. "decomposition"). Define the helper below and at the same indent level as the main no_teen_sum().
+# no_teen_sum(1, 2, 3) → 6
+# no_teen_sum(2, 13, 1) → 3
+# no_teen_sum(2, 1, 14) → 3
+def no_teen_sum(a, b, c):
+    return fix_teen(a) + fix_teen(b) + fix_teen(c)
 
-# Warmup-1 > parrot_trouble
-# We have a loud talking parrot. The "hour" parameter is the current hour time in the range 0..23.
-# We are in trouble if the parrot is talking and the hour is before 7 or after 20. Return True if we are in trouble.
-# parrot_trouble(True, 6) → True
-# parrot_trouble(True, 7) → False
-# parrot_trouble(False, 6) → False
-def parrot_trouble(talking, hour):
-    if talking and (hour < 7 or hour > 20):
-        return True
+def fix_teen(n):
+    if 13 <= n <= 14 or 17 <= n <= 19:
+        return 0
     else:
-        return False
+        return n
 
+# Logic-2 > round_sum
+# For this problem, we'll round an int value up to the next multiple of 10 if its rightmost digit is 5 or more, so 15 rounds up to 20.
+# Alternately, round down to the previous multiple of 10 if its rightmost digit is less than 5, so 12 rounds down to 10.
+# Given 3 ints, a b c, return the sum of their rounded values. To avoid code repetition, write a separate helper "def round10(num):" and call it 3 times.
+# Write the helper entirely below and at the same indent level as round_sum().
+# round_sum(16, 17, 18) → 60
+# round_sum(12, 13, 14) → 30
+# round_sum(6, 4, 4) → 10
+def round_sum(a, b, c):
+    return round10(a) + round10(b) + round10(c)
 
-# Warmup-1 > makes10
-# Given 2 ints, a and b, return True if one of them is 10 or if their sum is 10.
-# makes10(9, 10) → True
-# makes10(9, 9) → False
-# makes10(1, 9) → True
-def makes10(a, b):
-    return (a == 10 or b == 10 or a + b == 10)
-    # if (a == 10 or b == 10) or (a+b==10):
-    #     return True
-    #   else:
-    #     return False
-
-
-# Warmup-1 > near_hundred
-# Given an int n, return True if it is within 10 of 100 or 200. Note: abs(num) computes the absolute value of a number.
-# near_hundred(93) → True
-# near_hundred(90) → True
-# near_hundred(89) → False
-def near_hundred(n):
-    return ((abs(100 - n) <= 10) or (abs(200 - n) <= 10))
-    # if abs(100-n) <= 10 or abs(200-n) <= 10:
-    #     return True
-    #   else:
-    #     return False
-
-
-# Warmup-1 > not_string
-# Given a string, return a new string where "not " has been added to the front.
-# However, if the string already begins with "not", return the string unchanged.
-# not_string('candy') → 'not candy'
-# not_string('x') → 'not x'
-# not_string('not bad') → 'not bad'
-def not_string(str):
-    if str[:3] == "not":
-        return str
-    return "not " + str
-
-
-# Warmup-1 > missing_char
-# Given a non-empty string and an int n, return a new string where the char at index n has been removed.
-# The value of n will be a valid index of a char in the original string
-# (i.e. n will be in the range 0..len(str)-1 inclusive).
-# missing_char('kitten', 1) → 'ktten'
-# missing_char('kitten', 0) → 'itten'
-# missing_char('kitten', 4) → 'kittn'
-def missing_char(str, n):
-    return str[:n] + str[n+1:]
-
-
-# Warmup-1 > front_back
-# Given a string, return a new string where the first and last chars have been exchanged.
-# front_back('code') → 'eodc'
-# front_back('a') → 'a'
-# front_back('ab') → 'ba'
-def front_back(str):
-    if len(str) <= 1:
-        return str
+def round10(num):
+    # finding remainder using %
+    if num % 10 >= 5:
+        # floor division
+        return (num // 10 + 1) * 10
     else:
-        return str[-1] + str[1:-1] + str[0]
+        return (num // 10) * 10
 
 
-# Warmup-1 > front3
-# Given a string, we'll say that the front is the first 3 chars of the string.
-# If the string length is less than 3, the front is whatever is there.
-# Return a new string which is 3 copies of the front.
-# front3('Java') → 'JavJavJav'
-# front3('Chocolate') → 'ChoChoCho'
-# front3('abc') → 'abcabcabc'
-def front3(str):
-    if len(str) < 3:
-        return 3 * str
-    return 3 * str[:3]
+# Logic-2 > close_far
+# Given three ints, a b c, return True if one of b or c is "close" (differing from a by at most 1), while the other is "far", differing from both other values by 2 or more.
+# close_far(1, 2, 10) → True
+# close_far(1, 2, 3) → False
+# close_far(4, 1, 3) → True
+def close_far(a, b, c):
+    return (abs(a - b) <= 1 and abs(a - c) >= 2 and abs(b - c) >= 2) or \
+           (abs(a - c) <= 1 and abs(a - b) >= 2 and abs(b - c) >= 2) or \
+           (abs(b - c) <= 1 and abs(b - a) >= 2 and abs(c - a) >= 2)
 
+# Logic-2 > make_chocolate
+# We want make a package of goal kilos of chocolate. We have small bars (1 kilo each) and big bars (5 kilos each).
+# Return the number of small bars to use, assuming we always use big bars before small bars. Return -1 if it can't be done.
+# make_chocolate(4, 1, 9) → 4
+# make_chocolate(4, 1, 10) → -1
+# make_chocolate(4, 1, 7) → 2
+def make_chocolate(small, big, goal):
+    big_needed = min(big , goal /5)
+    small_needed = goal - (big_needed * 5 )
+    if small_needed <= small:
+        return small_needed
+    else:
+        return -1
 
-# Warmup-2 > string_times
-# Given a string and a non-negative int n, return a larger string that is n copies of the original string.
-# string_times('Hi', 2) → 'HiHi'
-# string_times('Hi', 3) → 'HiHiHi'
-# string_times('Hi', 1) → 'Hi'
-def string_times(str, n):
-    return n * str
-def string_times2(str, n):
-    result = ""
-    for i in range(n):  # range(n) is [0, 1, 2, .... n-1]
-        result = result + str  # could use += here
-    return result
-
-# Warmup-2 > front_times
-# Given a string and a non-negative int n, we'll say that the front of the string is the first 3 chars,
-# or whatever is there if the string is less than length 3. Return n copies of the front;
-# front_times('Chocolate', 2) → 'ChoCho'
-# front_times('Chocolate', 3) → 'ChoChoCho'
-# front_times('Abc', 3) → 'AbcAbcAbc'
-def front_times(str, n):
-    return n * str[:3]
-def front_times2(str, n):
-    front_len = 3
-    if front_len > len(str):
-        front_len = len(str)
-    front = str[:front_len]
-    result = ""
-    for i in range(n):
-        result = result + front
-    return result
-
-
-# Warmup-2 > string_bits
-# Given a string, return a new string made of every other char starting with the first, so "Hello" yields "Hlo".
-# string_bits('Hello') → 'Hlo'
-# string_bits('Hi') → 'H'
-# string_bits('Heeololeo') → 'Hello'
-def string_bits(str):
-    return str[0:len(str):2]
-
-
-# Warmup-2 > string_splosion
-# Given a non-empty string like "Code" return a string like "CCoCodCode".
-# string_splosion('Code') → 'CCoCodCode'
-# string_splosion('abc') → 'aababc'
-# string_splosion('ab') → 'aab'
-def string_splosion(str):
+# String-2 > double_char
+# Given a string, return a string where for every char in the original, there are two chars.
+# double_char('The') → 'TThhee'
+# double_char('AAbb') → 'AAAAbbbb'
+# double_char('Hi-There') → 'HHii--TThheerree'
+def double_char(str):
     result = ""
     for i in range(len(str)):
-        result += str[:i+1]
+        result += 2 * str[i]
     return result
 
+def double_char_v2(str):
+    str2 = []
+    for c in str:
+        str2.append(2 * c)
 
-# Warmup-2 > last2     HARD
-# Given a string, return the count of the number of times that a substring length 2 appears in the string
-# and also as the last 2 chars of the string, so "hixxxhi" yields 1 (we won't count the end substring).
-# last2('hixxhi') → 1
-# last2('xaxxaxaxx') → 1
-# last2('axxxaaxx') → 2
-def last2(input_string):
+    return "".join(str2)
+
+# String-2 > count_hi
+# Return the number of times that the string "hi" appears anywhere in the given string.
+# count_hi('abc hi ho') → 1
+# count_hi('ABChi hi') → 2
+# count_hi('hihi') → 2
+def count_hi(str):
     count = 0
-    last_two = input_string[-2:]
-
-    for i in range(len(input_string) - 2):
-        if input_string[i:i + 2] == last_two:
-            count += 1
-
-    return count
-
-
-# Warmup-2 > array_count9
-# Given an array of ints, return the number of 9's in the array.
-# array_count9([1, 2, 9]) → 1
-# array_count9([1, 9, 9]) → 2
-# array_count9([1, 9, 9, 3, 9]) → 3
-def array_count9(nums):
-    count = 0
-    for num in nums:
-        if num == 9:
+    for i in range(len(str)):
+        if str[i:i+2] == "hi":
             count += 1
     return count
 
+# String-2 > cat_dog
+# Return True if the string "cat" and "dog" appear the same number of times in the given string.
+# cat_dog('catdog') → True
+# cat_dog('catcat') → False
+# cat_dog('1cat1cadodog') → True
+def cat_dog(str): #FASTER
+    count = 0
+    for i in range(len(str)):
+        if str[i:i + 3] == "dog":
+            count += 1
+        elif str[i:i + 3] == "cat":
+            count -= 1
+        else:
+            continue
 
-# Warmup-2 > array_front9
-# Given an array of ints, return True if one of the first 4 elements in the array is a 9.
-# The array length may be less than 4.
-# array_front9([1, 2, 9, 3, 4]) → True
-# array_front9([1, 2, 3, 4, 9]) → False
-# array_front9([1, 2, 3, 4, 5]) → False
-def array_front9(nums):
-    return any(num == 9 for num in nums[:4])
+    if count == 0:
+        return True
+    else:
+        return False
 
-def array_front9_v2(nums):
+def cat_dog(string):
+    cat_count = string.count('cat')
+    dog_count = string.count('dog')
+    return cat_count == dog_count
+
+# String-2 > end_other
+# Given two strings, return True if either of the strings appears at the very end of the other string, ignoring upper/lower case differences (in other words, the computation should not be "case sensitive").
+# end_other('Hiabc', 'abc') → True
+# end_other('AbC', 'HiaBc') → True
+# end_other('abc', 'abXabc') → True
+def end_other(a, b):
+    a = a.lower()
+    b = b.lower()
+    return a.endswith(b) or b.endswith(a)
+
+def end_other_v2(a, b):
+    a = a.lower()
+    b = b.lower()
+    len_a = len(a)
+    len_b = len(b)
+
+    # Check if b appears at the very end of a
+    if len_a >= len_b and a[len_a - len_b:] == b:
+        return True
+    # Check if a appears at the very end of b
+    if len_b >= len_a and b[len_b - len_a:] == a:
+        return True
+    return False
+
+# String-2 > xyz_there
+# Return True if the given string contains an appearance of "xyz" where the xyz is not directly preceeded by a period (.).
+# So "xxyz" counts but "x.xyz" does not.
+# xyz_there('abcxyz') → True
+# xyz_there('abc.xyz') → False
+# xyz_there('xyz.abc') → True
+def xyz_there(str):
+    for i in range(len(str) - 2 ):
+        if str[i:i+3] == "xyz":
+            if i == 0 or str[i-1] != ".":
+                return True
+    return False
+
+# List-2 > count_evens
+# Return the number of even ints in the given array. Note: the % "mod" operator computes the remainder, e.g. 5 % 2 is 1.
+# count_evens([2, 1, 2, 3, 4]) → 3
+# count_evens([2, 2, 0]) → 3
+# count_evens([1, 3, 5]) → 0
+def count_evens(nums):
+    count = 0
     for i in range(len(nums)):
-        if nums[i] == 9 and i < 4:
-            return True
-    return False
-
-
-# Warmup-2 > array123
-# Given an array of ints, return True if the sequence of numbers 1, 2, 3 appears in the array somewhere.
-# array123([1, 1, 2, 3, 1]) → True
-# array123([1, 1, 2, 4, 1]) → False
-# array123([1, 1, 2, 1, 2, 3]) → True
-def array123(nums):
-    for i in range(len(nums) - 2):
-        if nums[i:i + 3] == [1, 2, 3]:
-            return True
-    return False
-
-def array1232(nums):
-    for i in range(len(nums) - 2):
-        if nums[i] == 1 and nums[i + 1] == 2 and nums[i + 2] == 3:
-            return True
-    return False
-
-
-# Warmup-2 > string_match  HARD
-# Given 2 strings, a and b, return the number of the positions where they contain the same length 2 substring.
-# So "xxcaazz" and "xxbaaz" yields 3, since the "xx", "aa", and "az" substrings appear in the same place in both strings.
-# string_match('xxcaazz', 'xxbaaz') → 3
-# string_match('abc', 'abc') → 2
-# string_match('abc', 'axc') → 0
-def string_match(a, b):
-    # Determine the length of the shorter string
-    length = min(len(a), len(b))
-    # Counter for matching substrings
-    count = 0
-    # Iterate through the strings up to the second-to-last index
-    for i in range(length - 1):
-        # Compare pairs of substrings directly
-        if a[i:i + 2] == b[i:i + 2]:
+        if nums[i] % 2 == 0:
             count += 1
     return count
 
+# List-2 > big_diff
+# Given an array length 1 or more of ints, return the difference between the largest and smallest values in the array.
+# Note: the built-in min(v1, v2) and max(v1, v2) functions return the smaller or larger of two values.
+# big_diff([10, 3, 5, 6]) → 7
+# big_diff([7, 2, 10, 9]) → 8
+# big_diff([2, 10, 7, 2]) → 8
+def big_diff(nums):
+    return max(nums) - min(nums)
 
-# String-1 > hello_name
-# Given a string name, e.g. "Bob", return a greeting of the form "Hello Bob!".
-# hello_name('Bob') → 'Hello Bob!'
-# hello_name('Alice') → 'Hello Alice!'
-# hello_name('X') → 'Hello X!'
-def hello_name(name):
-    return "Hello " + name + "!"
+# List-2 > centered_average
+# Return the "centered" average of an array of ints, which we'll say is the mean average of the values, except ignoring the largest and smallest values in the array.
+# If there are multiple copies of the smallest value, ignore just one copy, and likewise for the largest value. Use int division to produce the final average.
+# You may assume that the array is length 3 or more.
+# centered_average([1, 2, 3, 4, 100]) → 3
+# centered_average([1, 1, 5, 5, 10, 8, 7]) → 5
+# centered_average([-10, -4, -2, -4, -2, 0]) → -3
+def centered_average(nums):
+    min_value = min(nums)
+    max_value = max(nums)
+    average = 0
 
+    nums.remove(min_value)
+    nums.remove(max_value)
+    for i in nums:
+        average += i
+    average = average / len(nums)
+    return average
 
-# String-1 > make_abba
-# Given two strings, a and b, return the result of putting them together in the order abba, e.g. "Hi" and "Bye" returns "HiByeByeHi".
-# make_abba('Hi', 'Bye') → 'HiByeByeHi'
-# make_abba('Yo', 'Alice') → 'YoAliceAliceYo'
-# make_abba('What', 'Up') → 'WhatUpUpWhat'
-def make_abba(a, b):
-    return a + b + b + a
+def centered_average(nums):
+    nums.sort()  # Sort the array in ascending order
+    sum = 0
+    for i in range(1, len(nums) - 1):  # Exclude the first and last elements
+        sum += nums[i]
+    return sum // (len(nums) - 2)  # Calculate the centered average using integer division
 
+# List-2 > sum13
+# Return the sum of the numbers in the array, returning 0 for an empty array.
+# Except the number 13 is very unlucky, so it does not count and numbers that come immediately after a 13 also do not count.
+# sum13([1, 2, 2, 1]) → 6
+# sum13([1, 1]) → 2
+# sum13([1, 2, 2, 1, 13]) → 6
+def sum13(nums):
+    sum = 0
+    if len(nums) == 0:
+        return 0
+    for i in range(len(nums)):
+        if i == 0 and nums[i] != 13:
+            sum += nums[i]
 
-# String-1 > make_tags
-# The web is built with HTML strings like "<i>Yay</i>" which draws Yay as italic text.
-# In this example, the "i" tag makes <i> and </i> which surround the word "Yay".
-# Given tag and word strings, create the HTML string with tags around the word, e.g. "<i>Yay</i>".
-# make_tags('i', 'Yay') → '<i>Yay</i>'
-# make_tags('i', 'Hello') → '<i>Hello</i>'
-# make_tags('cite', 'Yay') → '<cite>Yay</cite>'
-def make_tags(tag, word):
-    return "<" + tag + ">" + word + "</" + tag + ">"
+        elif nums[i] == 13 or (nums[i - 1] == 13):
+            continue
+        else:
+            sum += nums[i]
+    return sum
 
+def sum13(nums):
+    sum = 0
+    skip_next = False
+    for num in nums:
+        if skip_next:
+            skip_next = False
+            continue
+        if num == 13:
+            skip_next = True
+            continue
+        sum += num
+    return sum
 
-# String-1 > make_out_word
-# Given an "out" string length 4, such as "<<>>", and a word, return a new string where the word is in the middle of the out string, e.g. "<<word>>".
-# make_out_word('<<>>', 'Yay') → '<<Yay>>'
-# make_out_word('<<>>', 'WooHoo') → '<<WooHoo>>'
-# make_out_word('[[]]', 'word') → '[[word]]'
-def make_out_word(out, word):
-    return out[:len(out)/2] + word + out[len(out)/2:]
+# List-2 > sum67
+# Return the sum of the numbers in the array, except ignore sections of numbers starting with a 6 and extending to the next 7
+# (every 6 will be followed by at least one 7). Return 0 for no numbers.
+# sum67([1, 2, 2]) → 5
+# sum67([1, 2, 2, 6, 99, 99, 7]) → 5
+# sum67([1, 1, 6, 7, 2]) → 4
+def sum67(nums):
+    sum = 0
+    skip_next = False
+    for num in nums:
+        if num == 6:
+            skip_next = True
+            continue
+        if num == 7 and skip_next:
+            skip_next = False
+            continue
+        if not skip_next:
+            sum += num
+    return sum
 
+# List-2 > has22
+# Given an array of ints, return True if the array contains a 2 next to a 2 somewhere.
+# has22([1, 2, 2]) → True
+# has22([1, 2, 1, 2]) → False
+# has22([2, 1, 2]) → False
+def has22(nums):
+    for i in range(len(nums) - 1):
+        if nums[i] == 2 and nums[i + 1] == 2:
+            return True
 
-# String-1 > extra_end
-# Given a string, return a new string made of 3 copies of the last 2 chars of the original string. The string length will be at least 2.
-# extra_end('Hello') → 'lololo'
-# extra_end('ab') → 'ababab'
-# extra_end('Hi') → 'HiHiHi'
-def extra_end(str):
-    return 3*str[-2:]
-
-
-# String-1 > first_two
-# Given a string, return the string made of its first two chars, so the String "Hello" yields "He".
-# If the string is shorter than length 2, return whatever there is, so "X" yields "X", and the empty string "" yields the empty string "".
-# first_two('Hello') → 'He'
-# first_two('abcdefg') → 'ab'
-# first_two('ab') → 'ab'
-def first_two(str):
-    return str[:2]
-
-
-# String-1 > first_half
-# Given a string of even length, return the first half. So the string "WooHoo" yields "Woo".
-# first_half('WooHoo') → 'Woo'
-# first_half('HelloThere') → 'Hello'
-# first_half('abcdef') → 'abc'
-def first_half(str):
-    return str[:len(str)/2]
-
-
-# String-1 > without_end
-# Given a string, return a version without the first and last char, so "Hello" yields "ell".
-# The string length will be at least 2.
-# without_end('Hello') → 'ell'
-# without_end('java') → 'av'
-# without_end('coding') → 'odin'
-def without_end(str):
-    return str[1:len(str)-1]
-
-
-# # String-1 > combo_string
-# # Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside
-# # and the longer string on the inside. The strings will not be the same length, but they may be empty (length 0).
-# # combo_string('Hello', 'hi') → 'hiHellohi'
-# # combo_string('hi', 'Hello') → 'hiHellohi'
-# combo_string('aaa', 'b') → 'baaab'
-def combo_string(a, b):
-    if len(a) < len(b):
-        return a + b + a
-    else:
-        return b + a + b
-
-def combo_string2(a, b):
-    if len(a) >= len(b):
-      big,short = a,b
-    else:
-      big,short = b,a
-    return short + big + short
-
-
-# String-1 > non_start
-# Given 2 strings, return their concatenation, except omit the first char of each. The strings will be at least length 1.
-# non_start('Hello', 'There') → 'ellohere'
-# non_start('java', 'code') → 'avaode'
-# non_start('shotl', 'java') → 'hotlava'
-def non_start(a, b):
-    return a[1:] + b[1:]
-
-
-# String-1 > left2
-# Given a string, return a "rotated left 2" version where the first 2 chars are moved to the end.
-# The string length will be at least 2.
-# left2('Hello') → 'lloHe'
-# left2('java') → 'vaja'
-# left2('Hi') → 'Hi'
-def left2(str):
-    if len(str) >= 2:
-        return str[2:] + str[:2]
-    else:
-        return str
+    return False
 
 
 
