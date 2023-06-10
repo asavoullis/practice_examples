@@ -307,10 +307,3 @@ def has22(nums):
             return True
 
     return False
-
-
-
-
-
-
-
