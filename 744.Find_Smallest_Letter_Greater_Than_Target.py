@@ -29,6 +29,7 @@
 class Solution:
     # To find the smallest character in the given array letters that is lexicographically greater than the target character target, we can use a binary search approach.
     # Since the array is sorted in non-decreasing order, we can apply binary search to efficiently find the desired character.
+    # o(log2 (n)) time comlexity - binary search
     def nextGreatestLetter(self, letters: list[str], target: str) -> str:
         left = 0
         right = len(letters) - 1
@@ -51,6 +52,7 @@ class Solution:
                 return letters[0]
 
     def nextGreatestLetter2(self, letters: list[str], target: str) -> str:
+        # linear search O(n) time complexity
         for i in letters:
             if i > target:
                 return i
