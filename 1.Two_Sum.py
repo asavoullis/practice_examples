@@ -40,8 +40,6 @@ class Solution:
                 # stores in dictionary as key: value
                 seen[nums[i]] = i
 
-
-
     def twoSum_v1(self, nums: list[int], target: int) -> list[int]:
         # O(n^2) time complexity because we traverse the array twice - uses nested loops to iterate over the list
         # The outer loop iterates from 0 to n-1, and for each iteration of the outer loop, the inner loop iterates from 0 to n-2.
